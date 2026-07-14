@@ -4,295 +4,236 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CodeCell — IA aplicada ao seu negócio</title>
-  <meta name="description" content="A CodeCell projeta e implementa soluções de inteligência artificial que se encaixam no dia a dia da sua empresa. Da estratégia à automação em produção. Campo Grande, MS." />
+  <meta name="description" content="A CodeCell projeta e coloca em produção soluções de inteligência artificial que resolvem problemas reais da sua empresa. Da estratégia à automação que o time usa todo dia. Campo Grande, MS." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="CodeCell — IA aplicada ao seu negócio" />
-  <meta property="og:description" content="Soluções de inteligência artificial que se encaixam no dia a dia da sua empresa. Da estratégia à automação em produção." />
+  <meta property="og:description" content="IA de verdade é a que alguém usa na segunda-feira. Da estratégia à automação em produção — feito em Campo Grande, MS." />
   <meta property="og:url" content="https://codecell.io" />
   <meta property="og:image" content="https://codecell.io/logo.png" />
-  <meta name="theme-color" content="#6A1B9A" />
+  <meta name="theme-color" content="#e7e1d6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#160f1e" media="(prefers-color-scheme: dark)" />
 
   <link rel="icon" type="image/png" href="logo.png" />
 
+  <!-- Type: Barlow Condensed (display) + Hanken Grotesk (body). GitHub Pages: no CSP, webfonts OK. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
     :root {
-      --brand-900: #4A0F73;
-      --brand-700: #6A1B9A;
-      --brand-500: #7B2FBE;
-      --brand-300: #A472D6;
-      --brand-200: #C6A3EA;
-      --brand-glow: #B98FE0;
+      /* warm greige world (light) */
+      --sand:     #e7e1d6;
+      --sand-2:   #ddd5c6;
+      --sand-3:   #d2c9b7;
+      --ink:      #241f2c;
+      --ink-soft: #423b4c;
+      --mut:      #6a6152;
+      --plum:     #6a2f8f;
+      --coral:    #cf5335;
 
-      --bg: #0E0713;
-      --bg-soft: #170C21;
-      --surface: rgba(255, 255, 255, 0.04);
-      --surface-border: rgba(198, 163, 234, 0.16);
-      --text: #F3ECFA;
-      --text-dim: #B9AEC9;
-      --text-faint: #8A7E9B;
+      --btn-bg:   var(--ink);
+      --btn-fg:   var(--sand);
+      --ground:   var(--sand);
+      --ground-2: var(--sand-2);
 
-      --radius: 20px;
-      --maxw: 1080px;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --maxw: 1120px;
+      --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+      --body: "Hanken Grotesk", system-ui, "Segoe UI", Roboto, sans-serif;
     }
 
-    @media (prefers-color-scheme: light) {
+    @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #FBF9FE;
-        --bg-soft: #F3EDFB;
-        --surface: rgba(122, 47, 190, 0.04);
-        --surface-border: rgba(106, 27, 154, 0.14);
-        --text: #23122F;
-        --text-dim: #5B4A6B;
-        --text-faint: #857894;
+        --sand:     #efe8dc;   /* text on dark */
+        --sand-2:   #cdc3b3;
+        --sand-3:   #a99f8e;
+        --ink:      #f0e9dd;   /* "ink" role flips to light for text */
+        --ink-soft: #cbc2b3;
+        --mut:      #9a8f9f;
+        --plum:     #c79fe6;
+        --coral:    #e0674a;
+
+        --btn-bg:   #efe8dc;
+        --btn-fg:   #1c1226;
+        --ground:   #160f1e;
+        --ground-2: #1e1528;
       }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
+      font-family: var(--body);
+      background: var(--ground);
+      color: var(--ink);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
     }
 
-    /* ---- Ambient "cell" blobs echoing the logo ---- */
-    .blobs { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(70px);
-      opacity: 0.55;
-      animation: drift 22s ease-in-out infinite alternate;
-    }
-    .blob.a { width: 480px; height: 480px; top: -140px; left: -120px;
-      background: radial-gradient(circle at 30% 30%, var(--brand-300), var(--brand-700)); }
-    .blob.b { width: 400px; height: 400px; top: 20%; right: -140px;
-      background: radial-gradient(circle at 40% 40%, var(--brand-500), var(--brand-900));
-      animation-delay: -6s; }
-    .blob.c { width: 360px; height: 360px; bottom: -160px; left: 30%;
-      background: radial-gradient(circle at 50% 50%, var(--brand-glow), var(--brand-500));
-      animation-delay: -12s; opacity: 0.4; }
-
-    @media (prefers-color-scheme: light) {
-      .blob { opacity: 0.28; }
-      .blob.c { opacity: 0.22; }
+    .cond {
+      font-family: var(--display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .005em;
     }
 
-    @keyframes drift {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(40px, 30px) scale(1.12); }
-    }
-
-    /* ---- Layout ---- */
     .wrap {
-      position: relative; z-index: 1;
       max-width: var(--maxw);
       margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 48px);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      padding: 0 clamp(20px, 5vw, 56px);
     }
 
+    /* ---- Header ---- */
     header {
-      padding: 28px 0;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 26px 0;
     }
-    .brand img { height: 34px; width: auto; display: block; }
+    .brand img { height: 30px; width: auto; display: block; }
     .brand .light-logo { display: none; }
-    @media (prefers-color-scheme: light) {
+    @media (prefers-color-scheme: dark) {
       .brand .dark-logo { display: none; }
       .brand .light-logo { display: block; }
     }
-
-    .nav-tag {
-      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--text-faint);
-      border: 1px solid var(--surface-border);
-      padding: 6px 12px; border-radius: 999px;
-      white-space: nowrap;
+    .where {
+      font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--mut); white-space: nowrap;
     }
 
-    /* ---- Hero ---- */
-    main { flex: 1; display: flex; align-items: center; padding: clamp(40px, 8vh, 96px) 0; }
-    .hero { max-width: 760px; }
-
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
-      color: var(--brand-200);
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      padding: 7px 14px; border-radius: 999px;
-      margin-bottom: 26px;
+    /* ---- Hero / manifesto ---- */
+    .stage { padding: clamp(44px, 9vw, 108px) 0 clamp(32px, 5vw, 64px); }
+    .lbl {
+      font-size: 13.5px; font-weight: 700; letter-spacing: .02em;
+      color: var(--plum); margin-bottom: 26px;
     }
-    .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-300);
-      box-shadow: 0 0 0 0 var(--brand-300); animation: pulse 2.4s infinite; }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(164,114,214,0.55); }
-      70% { box-shadow: 0 0 0 10px rgba(164,114,214,0); }
-      100% { box-shadow: 0 0 0 0 rgba(164,114,214,0); }
-    }
-
     h1 {
-      font-size: clamp(2.3rem, 6vw, 4rem);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
+      font-family: var(--display);
       font-weight: 800;
-      margin-bottom: 22px;
+      text-transform: uppercase;
+      font-size: clamp(3rem, 10.5vw, 8.4rem);
+      line-height: .84;
+      letter-spacing: -.005em;
+      text-wrap: balance;
+      color: var(--ink);
     }
-    h1 .grad {
-      background: linear-gradient(100deg, var(--brand-300), var(--brand-glow) 60%, var(--brand-200));
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
+    h1 .u { color: var(--coral); }
+    .say {
+      margin-top: 34px;
+      max-width: 42ch;
+      font-size: clamp(1.12rem, 2vw, 1.5rem);
+      line-height: 1.5;
+      color: var(--ink-soft);
     }
+    .say b { color: var(--ink); font-weight: 700; }
 
-    .lede {
-      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-      color: var(--text-dim);
-      max-width: 620px;
-      margin-bottom: 40px;
-    }
-
-    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-    .btn {
+    .acts { display: flex; flex-wrap: wrap; gap: 16px 30px; align-items: center; margin-top: 42px; }
+    .cta {
       display: inline-flex; align-items: center; gap: 10px;
-      font-size: 1rem; font-weight: 600;
-      padding: 14px 26px; border-radius: 999px;
-      text-decoration: none; cursor: pointer;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      text-decoration: none; font-weight: 700; font-size: 15px;
+      background: var(--btn-bg); color: var(--btn-fg);
+      padding: 16px 32px; border-radius: 999px;
+      transition: background .18s ease, transform .18s ease;
     }
-    .btn-primary {
-      color: #fff;
-      background: linear-gradient(100deg, var(--brand-500), var(--brand-700));
-      box-shadow: 0 10px 30px -8px rgba(123,47,190,0.6);
+    .cta:hover { background: var(--plum); color: #fff; transform: translateY(-2px); }
+    .cta svg { width: 16px; height: 16px; }
+    .link {
+      color: var(--ink); text-decoration: none; font-weight: 600; font-size: 15px;
+      border-bottom: 2px solid var(--coral); padding-bottom: 2px;
+      transition: color .18s ease;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -8px rgba(123,47,190,0.75); }
-    .btn-ghost {
-      color: var(--text); border: 1px solid var(--surface-border); background: var(--surface);
-    }
-    .btn-ghost:hover { transform: translateY(-2px); border-color: var(--brand-300); }
+    .link:hover { color: var(--plum); }
 
-    /* ---- Pillars ---- */
-    .pillars {
-      display: grid; gap: 18px;
-      grid-template-columns: repeat(3, 1fr);
-      padding: 8px 0 64px;
+    a:focus-visible, .cta:focus-visible {
+      outline: 2px solid var(--plum); outline-offset: 3px; border-radius: 4px;
     }
-    @media (max-width: 760px) { .pillars { grid-template-columns: 1fr; } }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: var(--radius);
-      padding: 26px 24px;
-      backdrop-filter: blur(8px);
-      transition: transform .2s ease, border-color .2s ease;
+    /* ---- Three services ---- */
+    .three {
+      display: grid; gap: 0;
+      border-top: 2px solid var(--ink);
+      margin-top: clamp(52px, 8vw, 96px);
     }
-    .card:hover { transform: translateY(-4px); border-color: var(--brand-300); }
-    .card .ic {
-      width: 42px; height: 42px; border-radius: 12px;
-      display: grid; place-items: center;
-      background: linear-gradient(135deg, var(--brand-500), var(--brand-900));
-      margin-bottom: 16px;
+    @media (min-width: 820px) { .three { grid-template-columns: repeat(3, 1fr); } }
+    .cell { padding: 32px 0 42px; border-bottom: 1px solid var(--ground-2); }
+    @media (min-width: 820px) {
+      .cell { border-bottom: none; border-right: 1px solid var(--sand-3); padding: 34px clamp(20px, 3vw, 36px) 44px 0; }
+      .cell:last-child { border-right: none; padding-right: 0; }
     }
-    .card .ic svg { width: 22px; height: 22px; stroke: #fff; }
-    .card h3 { font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
-    .card p { font-size: 0.96rem; color: var(--text-dim); }
+    @media (prefers-color-scheme: dark) {
+      .cell { border-color: #33283f; }
+      @media (min-width: 820px) { .cell { border-right-color: #33283f; } }
+    }
+    .cell h2 { font-size: 1.7rem; letter-spacing: .01em; margin-bottom: 12px; color: var(--ink); }
+    .cell p { color: var(--ink-soft); font-size: 1rem; line-height: 1.55; max-width: 34ch; }
 
     /* ---- Footer ---- */
     footer {
-      border-top: 1px solid var(--surface-border);
-      padding: 26px 0 40px;
-      display: flex; flex-wrap: wrap; gap: 8px 22px;
-      align-items: center; justify-content: space-between;
-      font-size: 0.85rem; color: var(--text-faint);
+      display: flex; flex-wrap: wrap; gap: 6px 26px; justify-content: space-between;
+      padding: 36px 0 64px;
+      font-size: 12.5px; color: var(--mut); letter-spacing: .02em;
     }
-    footer .fmeta { display: flex; flex-wrap: wrap; gap: 6px 18px; }
-    footer a { color: var(--text-dim); text-decoration: none; }
-    footer a:hover { color: var(--brand-300); }
+    footer a { color: var(--ink-soft); text-decoration: none; }
+    footer a:hover { color: var(--plum); }
 
     @media (prefers-reduced-motion: reduce) {
-      .blob, .eyebrow .dot { animation: none; }
-      * { scroll-behavior: auto; }
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="blobs" aria-hidden="true">
-    <div class="blob a"></div>
-    <div class="blob b"></div>
-    <div class="blob c"></div>
-  </div>
-
   <div class="wrap">
     <header>
       <div class="brand">
-        <img class="dark-logo" src="logo-white.png" alt="CodeCell" />
-        <img class="light-logo" src="logo.png" alt="CodeCell" />
+        <img class="dark-logo" src="logo.png" alt="CodeCell" />
+        <img class="light-logo" src="logo-white.png" alt="CodeCell" />
       </div>
-      <span class="nav-tag">Campo Grande · MS</span>
+      <span class="where">Feito em Campo Grande, MS</span>
     </header>
 
-    <main>
-      <section class="hero">
-        <span class="eyebrow"><span class="dot"></span> Adoção de IA para empresas</span>
-        <h1>Inteligência artificial que a sua empresa <span class="grad">realmente usa</span>.</h1>
-        <p class="lede">
-          A CodeCell projeta e implementa soluções de IA que se encaixam nos seus processos —
-          da estratégia à automação em produção. Sem hype, com resultado no dia a dia.
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="mailto:contato@codecell.io?subject=Quero%20falar%20sobre%20IA%20na%20minha%20empresa">
-            Vamos conversar
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a class="btn btn-ghost" href="mailto:contato@codecell.io">contato@codecell.io</a>
-        </div>
-      </section>
+    <main class="stage">
+      <p class="lbl">Consultoria de inteligência artificial</p>
+      <h1>
+        IA de verdade<br />
+        é a que <span class="u">alguém usa</span><br />
+        na segunda-feira.
+      </h1>
+      <p class="say">
+        Nada de promessa de palco. A gente senta com o seu time, acha onde a IA
+        resolve um problema real e <b>entrega funcionando</b> — medido, mantido e
+        usado no dia a dia.
+      </p>
+      <div class="acts">
+        <a class="cta" href="mailto:contato@codecell.io?subject=Bora%20conversar%20sobre%20IA%20na%20minha%20empresa">
+          Bora conversar
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="link" href="mailto:contato@codecell.io">contato@codecell.io</a>
+      </div>
     </main>
 
-    <section class="pillars">
-      <article class="card">
-        <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
-        </div>
-        <h3>Diagnóstico &amp; estratégia</h3>
-        <p>Mapeamos onde a IA gera valor real no seu negócio e traçamos um caminho de adoção claro e priorizado.</p>
+    <section class="three" aria-label="O que fazemos">
+      <article class="cell">
+        <h2 class="cond">Diagnóstico</h2>
+        <p>Achamos onde a IA gera valor de verdade e montamos um caminho claro — com custo, prazo e risco na mesa.</p>
       </article>
-      <article class="card">
-        <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 3-3 3-3-3zM12 16l3 3-3 3-3-3zM2 12l3-3 3 3-3 3zM16 12l3-3 3 3-3 3z"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
-        </div>
-        <h3>Soluções sob medida</h3>
-        <p>Automações, agentes e integrações construídos para os seus processos — não templates genéricos.</p>
+      <article class="cell">
+        <h2 class="cond">Sob medida</h2>
+        <p>Automações, agentes e integrações feitos pro seu processo. Nada de template genérico; código que você é dono.</p>
       </article>
-      <article class="card">
-        <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3>Adoção que fica</h3>
-        <p>Capacitação e acompanhamento para o seu time usar IA com autonomia, todos os dias.</p>
+      <article class="cell">
+        <h2 class="cond">Adoção</h2>
+        <p>Treinamos seu time pra tocar sozinho. A gente sai da sala, o resultado fica.</p>
       </article>
     </section>
 
     <footer>
-      <span>© <span id="yr">2026</span> CodeCell. Todos os direitos reservados.</span>
-      <div class="fmeta">
-        <span>Campo Grande, MS · Brasil</span>
-        <span>CNPJ 39.857.187/0001-80</span>
+      <span>© <span id="yr">2026</span> CodeCell · CNPJ 39.857.187/0001-80</span>
+      <div>
+        <span>Campo Grande, MS · Brasil · </span>
         <a href="mailto:contato@codecell.io">contato@codecell.io</a>
       </div>
     </footer>
