@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://codecell.io/sitemap.xml
